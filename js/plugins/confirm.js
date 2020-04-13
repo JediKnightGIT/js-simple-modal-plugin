@@ -3,8 +3,11 @@ $.confirm = function(options) {
     const modal = $.modal({
       title: options.title,
       width: '400px',
-      closable: false,
       content: options.content,
+      onOpen() {},
+      beforeClose() {
+        return false
+      },
       onClose() {
         modal.destroy()
       },

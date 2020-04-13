@@ -34,9 +34,9 @@ function _createModal(options) {
       <div class="modal-window" style="width: ${options.width || DEFAULT_WIDTH}">
         <div class="modal-header">
           <span class="modal-title">${options.title || 'Title'}</span>
-          ${options.closable ? `<span class="modal-close" data-close="true">&times;</span>` : ''}
+          ${options.beforeClose() === true ? `<span class="modal-close" data-close="true">&times;</span>` : ''}
         </div>
-        <div class="modal-body" data-content>
+        <div class="modal-body text-center" data-content>
           ${options.content || ''}
         </div>
         </div>
@@ -61,8 +61,15 @@ $.modal = function(options) {
         return console.log('Modal is destroyed')
       }
       !closing && $modal.classList.add('open')
+      setTimeout(() => {
+        if (typeof options.onOpen === 'function' && typeof options.beforeClose === 'function') {
+          options.onOpen()
+          options.beforeClose()
+        }
+      }, ANIMATION_SPEED)
     },
     close() {
+
       closing = true
       $modal.classList.remove('open')
       $modal.classList.add('hide')
