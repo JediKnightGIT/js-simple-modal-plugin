@@ -5,6 +5,7 @@ let vegetables = [
   {id: 4, title: 'Garlic', price: 30, img: 'https://www.haifa-group.com/sites/default/files/crop/garlic%20isolated.jpg', video: 'p1H4520GlfQ'},
   {id: 5, title: 'Potato', price: 25, img: 'https://www.irishtimes.com/polopoly_fs/1.3967277.1564062363!/image/image.jpg_gen/derivatives/ratio_1x1_w1200/image.jpg', video: 'lkJ0aJNzf1g'}
 ]
+let player
 
 const toHTML = vegetable => `
   <div class="col">
@@ -50,9 +51,10 @@ document.addEventListener('click', event => {
 
   if (btnType === 'price') {
     priceModal.setContent(`
-      <p>Price for ${vegetable.title} is <strong>$${vegetable.price}</strong></p>
-
-      <iframe width="460" height="315" src="https://www.youtube.com/embed/${vegetable.video}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <p>Price for ${vegetable.title} is <strong>$${vegetable.price}</strong></p>
+    
+    <iframe id="player" width="460" height="315" src="https://www.youtube.com/embed/${vegetable.video}?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+    </iframe>
     `)
     priceModal.open()
   } else if (btnType === 'remove') {
@@ -65,18 +67,5 @@ document.addEventListener('click', event => {
       vegetables = vegetables.filter(veg => veg.id !== id)
       renderCards()
     })
-    .catch(() => {
-    })
   }
 })
-
-  // function factorialize(num) {
-  //   if (num <= 0) {
-  //     console.log('vot')
-  //     return 1
-  //   } 
-  //   console.log(num)
-  //   return factorialize(num - 1) * num;
-  // }
-
-  // console.log(factorialize(3))
