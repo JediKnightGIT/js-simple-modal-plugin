@@ -5,7 +5,7 @@ let vegetables = [
   {id: 4, title: 'Garlic', price: 30, img: 'https://www.haifa-group.com/sites/default/files/crop/garlic%20isolated.jpg', video: 'p1H4520GlfQ'},
   {id: 5, title: 'Potato', price: 25, img: 'https://www.irishtimes.com/polopoly_fs/1.3967277.1564062363!/image/image.jpg_gen/derivatives/ratio_1x1_w1200/image.jpg', video: 'lkJ0aJNzf1g'}
 ]
-let player
+// let player
 
 const toHTML = vegetable => `
   <div class="col">
@@ -32,8 +32,11 @@ const priceModal = $.modal({
   beforeClose() {
     return true
   },
+  onOpen() {
+  },
   onClose() {
-    document.querySelector('iframe').remove();
+    onModalClose()
+    // document.querySelector('iframe').remove();
   },
   width: '600px',
   footerButtons:  [
@@ -53,9 +56,11 @@ document.addEventListener('click', event => {
     priceModal.setContent(`
     <p>Price for ${vegetable.title} is <strong>$${vegetable.price}</strong></p>
     
-    <iframe id="player" width="460" height="315" src="https://www.youtube.com/embed/${vegetable.video}?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-    </iframe>
+    <div id="player" class="video-player"></div>
     `)
+    // <iframe id="player" width="460" height="315" src="https://www.youtube.com/embed/${vegetable.video}?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+    // </iframe>
+    onModalOpen(vegetable.video)
     priceModal.open()
   } else if (btnType === 'remove') {
     $.confirm({

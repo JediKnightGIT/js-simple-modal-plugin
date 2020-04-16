@@ -60,6 +60,8 @@ $.modal = function(options) {
       if (destroyed) {
         return console.log('Modal is destroyed')
       }
+      
+  $modal.addEventListener('click', listener)
       !closing && $modal.classList.add('open')
       setTimeout(() => {
         if (typeof options.onOpen === 'function' && typeof options.beforeClose === 'function') {
@@ -69,10 +71,10 @@ $.modal = function(options) {
       }, ANIMATION_SPEED)
     },
     close() {
-
       closing = true
       $modal.classList.remove('open')
       $modal.classList.add('hide')
+      $modal.removeEventListener('click', listener)
       setTimeout(() => {
         $modal.classList.remove('hide')
         closing = false
@@ -89,7 +91,6 @@ $.modal = function(options) {
     }
   }
 
-  $modal.addEventListener('click', listener)
 
   return Object.assign(modal, {
     destroy() {
