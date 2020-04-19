@@ -8,7 +8,7 @@ let vegetables = [
 // let player
 
 const toHTML = vegetable => `
-  <div class="col">
+  <div class="col-lg-4 d-flex align-items-stretch mb-4"">
     <div class="card">
       <img class="card-img-top" src="${vegetable.img}" alt="${vegetable.title}">
       <div class="card-body">

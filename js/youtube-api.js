@@ -5,6 +5,7 @@ let firstScriptTag = document.getElementsByTagName('script')[0]
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag)
 
 let player
+let videoId
 let isReady = false 
 let seconds = 0
 
@@ -30,12 +31,18 @@ function onModalOpen(id) {
 }
 
 function onPlayerReady(event) {
+  if (player.playerInfo.videoData.video_id === videoId)  {
+    event.target.seekTo(seconds)
+  }
   event.target.playVideo();
-  event.target.seekTo(seconds)
 }
 
 function onModalClose(){
+  if (player.getPlayerState() == 0) {
+    seconds = 0
+    return
+  }
   stopVideo()
-  seconds === YT.PlayerState.ENDED ? seconds = player.getCurrentTime() : seconds = 0
-  player =  null;
+  seconds = player.getCurrentTime()
+  videoId = player.playerInfo.videoData.video_id
 }
